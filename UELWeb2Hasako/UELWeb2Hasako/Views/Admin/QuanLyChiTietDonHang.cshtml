@@ -1,0 +1,39 @@
+﻿@model IEnumerable<UELWeb2Hasako.Models.CHITIETDONHANG>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+
+        <th>Tên hải sản</th>
+        <th>Số lượng</th>
+        <th>Đơn giá</th>
+        <th>Tổng giá trị đơn hàng</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.HAISANKHO.TenHS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Soluong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dongia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TonggiaCTDH)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaCTDH }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaCTDH }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaCTDH })
+        </td>*@
+    </tr>
+}
+
+</table>

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<UELWeb2Hasako.Models.DONHANG>
+
+@{
+    ViewBag.Title = "QuanLyDonHang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Quản lý đơn hàng</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <p>
+                @Html.ActionLink("Thêm mới", "ThemMoiDonHang")
+            </p>
+            <table class="table">
+                <tr>
+                    <th>Tên khách hàng</th>
+                    <th>Tên nhân viên</th>
+                    <th>Đã thanh toán</th>
+                    <th>Ngày đặt hàng</th>
+                    <th>Ngày giao hàng</th>
+                    <th>Địa chỉ giao hàng</th>
+                    <th>Tình trạng giao hàng</th>
+                    <th>Thành tiền</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KHACHHANG.TenKh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NHANVIEN.TenNV)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dathanhtoan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ngaydathang)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ngaygiaohang)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Diachigiaohang)
+                        </td>
+                        <td>
+                            @if (item.Tinhtranggiaohang == true)
+                            {
+                                @:Đã giao hàng
+                            }
+                            else
+                            {
+                                @:Chưa giao hàng
+                            }
+                            @*@Html.DisplayFor(modelItem => item.Tinhtranggiaohang)*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Thanhtien)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Sửa", "SuaDonHang", new { id = item.MaDH }) |
+                            @Html.ActionLink("Chi tiết", "ChiTietDonHang", new { id = item.MaDH }) |
+                            @Html.ActionLink("Xóa", "XoaDonHang", new { id = item.MaDH })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

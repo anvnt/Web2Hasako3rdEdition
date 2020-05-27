@@ -1,0 +1,116 @@
+﻿@*@using UELWeb2Hasako.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<UELWeb2Hasako.Models.HAISANKHO>*@
+
+@model IEnumerable<UELWeb2Hasako.Models.HAISANKHO>
+@{
+    ViewBag.Title = "QuanLySanPham";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Quản lý sản phẩm</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <p>
+                @Html.ActionLink("Thêm mới", "ThemMoiHSK")
+            </p>
+            <table class="table">
+                <tr>
+                    <th>Tên hải sản                    </th>
+                    <th>
+                        Đơn giá
+                    </th>
+                    <th>
+                        Mô tả
+                    </th>
+                    <th>
+                        Ảnh bìa
+                    </th>
+                    <th>
+                        Ngày cập nhật
+                    </th>
+                    <th>
+                        Đơn vị
+                    </th>
+                    <th>
+                        Số lượng tồn
+                    </th>
+                    <th>
+                        Tên danh mục
+                    </th>
+                    <th>
+                       Mã nhập hàng
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenHS)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dongia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mota)    
+                        </td>
+                        <td>
+                            <img src="@Url.Content("~/images/"+item.Anhbia)" height="80px" width="80px"/>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ngaycapnhat)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Donvi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Soluongton)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DANHMUCHAISANKHO.TenDM)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaNH)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Sửa", "SuaHSK", new { id = item.MaHS }) |
+                            @Html.ActionLink("Chi tiết", "ChitietHSK", new { id = item.MaHS }) |
+                            @Html.ActionLink("Xóa", "XoaHSK", new { id = item.MaHS })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            @*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount;
+            <div class="MenuTrang">
+                @Html.PagedListPager(Model, page => Url.Action("Sach", new { page = page }))
+            </div>
+            <style>
+                .MenuTrang li {
+                    display: inline;
+                }
+            </style>*@
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
