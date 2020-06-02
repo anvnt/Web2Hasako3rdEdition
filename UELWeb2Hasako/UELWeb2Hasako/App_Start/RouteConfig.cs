@@ -13,6 +13,15 @@ namespace UELWeb2Hasako
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            
+
+            //Chi tiet blog
+            routes.MapRoute(
+                name: "Chi tiết Blog",
+                url: "Blog/Details-{id}",
+                defaults: new { controller = "Blog", action = "Details" }   
+                );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

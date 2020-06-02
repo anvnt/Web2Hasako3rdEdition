@@ -1,0 +1,43 @@
+﻿@model IEnumerable<UELWeb2Hasako.Models.BLOG>
+
+@{
+    ViewBag.Title = "GetAllBlog";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<!-- Home -->
+<div class="super_container">
+
+    <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
+        <div class="home_overlay"></div>
+        <div class="home_content d-flex flex-column align-items-center justify-content-center">
+            <h2 class="home_title">Hasako Blog</h2>
+        </div>
+    </div>
+    <div class="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="blog_posts d-flex flex-row align-items-start justify-content-between">
+                        @foreach (var blog in Model)
+                        {
+                            <!-- Blog post -->
+                            <div class="blog_post">
+                                <div class="blog_image" style="background-image:url(images/@blog.Hinhanh)">
+                                    <img alt="@blog.Tieude" src="~/images/@blog.Hinhanh" width="200" />
+                                </div>
+                                <div class="blog_text">@blog.Tieude</div>
+                                <div class="blog_button"><a href="@Url.Action("Details","Blog",new { id=blog.MaBlog })">Đọc tiếp</a></div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

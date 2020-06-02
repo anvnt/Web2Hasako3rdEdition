@@ -1,0 +1,97 @@
+﻿
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<div class="super_container">
+    <!-- Home -->
+    @*<div class="home">
+            <img alt="@Model.Tieude" src="~/images/@Model.Hinhanh" />
+
+        </div>*@
+
+    <!-- Single Blog Post -->
+
+    <div class="single_post">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="single_post_title">@Model.Tieude</div>
+                    <div class="single_post_text">
+                        <img alt="@Model.Tieude" src="~/images/@Model.Hinhanh" width="50%" />
+
+                        <p>@Model.Noidung</p>
+
+                        <div class="single_post_quote text-center">
+                            <div class="quote_image"><img src="images/quote.png" alt=""></div>
+                            <div class="quote_text">"Ăn hải sản hasako mỗi ngày làm da dẻ của bạn trắng sáng hơn" - Chuyên gia dinh dưỡng Nguyễn Quang Tèo</div>
+                            <div class="quote_name"></div>
+                        </div>
+
+                        <p>
+                            Thông tin liên hệ:
+
+                            Cửa hàng hải sản khô gia truyền TP.HCM – Hải Sản Hasako.
+
+                            Trụ sở chính: 669 QL1A, P.Linh Trung, Q.Thủ Đức, TP.HCM.
+
+                            Giờ mở cửa: Từ 07h00 – 23h00 các ngày trong tuần.
+                            Điện thoại: 0123456777
+                            .
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Posts -->
+
+    <div class="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="blog_posts d-flex flex-row align-items-start justify-content-between">
+
+                        <!-- Blog post -->
+                        <div class="blog_post">
+                            <div class="blog_image" style="background-image:url(images/blog_4.jpg)">
+                                <img alt="@Model.Tieude" src="~/images/@Model.Hinhanh" width="200" />
+                            </div>
+                            <div class="blog_text">@Model.Tieude</div>
+                            <div class="blog_button"><a href="blog_single.html">Continue Reading</a></div>
+                        </div>
+
+                        <!-- Blog post -->
+                        <div class="blog_post">
+                            <div class="blog_image" style="background-image:url(images/blog_5.jpg)">
+                                <img alt="@Model.Tieude" src="~/images/blog02.png" width="200" />
+                            </div>
+                            <div class="blog_text">
+                                Cá khô - những lợi ích và hại cho sức khỏe
+
+                            </div>
+                            <div class="blog_button"><a href="blog_single.html">Continue Reading</a></div>
+                        </div>
+
+                        <!-- Blog post -->
+                        <div class="blog_post">
+                            <div class="blog_image" style="background-image:url(images/blog_5.jpg)">
+                                <img alt="@Model.Tieude" src="~/images/blog02.png" width="200" />
+                            </div>
+                            <div class="blog_text">
+                                Cá khô - những lợi ích và hại cho sức khỏe
+
+                            </div>
+                            <div class="blog_button"><a href="blog_single.html">Continue Reading</a></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>=
+</div>
