@@ -1,0 +1,5 @@
+*.dbml
+dbHasakoProject.dbml
+dbHasakoProject.dbml.layout
+dbHasakoProject.designer.cs
+.vs
