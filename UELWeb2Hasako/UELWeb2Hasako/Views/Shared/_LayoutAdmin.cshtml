@@ -3,7 +3,6 @@
 <html>
 <head>
     <style>
-
     </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,6 +29,10 @@
     <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <script src="https://cdn.tiny.cloud/1/2acqrgry3o008pctiuwxi1g9fcs61ovjyzvodod64unbebrc/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({ selector: 'textarea' });</script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -184,8 +187,8 @@
     with font-awesome or any other icon font library -->
                         <li class="nav-header">TRANG DASHBOARD & THỐNG KÊ</li>
                         <li class="nav-item">
-                            <a href="@Url.Action("IndexAdmin", null, new { area = string.Empty, controller = "Admin" },@Request.Url.Scheme )" class="nav-link active">
-                                <img src="~/images/dashboard (1).png" style="width:19.81px;height:20.3px;margin:3.2px"/>
+                            <a href="@Url.Action("IndexAdmin", null, new { area = string.Empty, controller = "Admin" },@Request.Url.Scheme )" class="nav-link">
+                                <img src="~/images/dashboard (1).png" style="width:19.81px;height:20.3px;margin:3.2px" />
                                 <p>
                                     Dashboard
                                 </p>
@@ -213,7 +216,7 @@
                             <a href="#" class="nav-link">
                                 <img src="~/images/product.png" style="width:20.3px;height:19px;margin:3.2px" />
                                 <p>
-                                   Sản phẩm
+                                    Sản phẩm
                                 </p>
                             </a>
                         </li>
@@ -221,15 +224,24 @@
                             <a href="#" class="nav-link">
                                 <img src="~/images/order.png" style="width:20.3px;height:19px;margin:3.2px" />
                                 <p>
-                                   Đơn hàng
+                                    Đơn hàng
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="@Url.Action("BlogAdmin", null, new { area = string.Empty, controller = "Admin" },@Request.Url.Scheme )" class="nav-link">
+                                <img src="~/images/blogicon.png" style="width:19.81px;height:18.3px;margin:3.2px" />
+                                <p>
+                                    Blog
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <img src="~/images/people.png" style="width:19.81px;height:18.3px;margin:3.2px" />
                                 <p>
-                                   Người dùng
+                                    Người dùng
                                 </p>
                             </a>
                         </li>
