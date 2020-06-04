@@ -1,0 +1,92 @@
+﻿@model UELWeb2Hasako.Models.BLOG
+
+
+@{
+    ViewBag.Title = "ChiTietBlog";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ChiTietBlog</h2>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.LabelFor(model => model.MaNV, "Nhân viên")
+
+                    </dt>
+                    <dd>
+
+                        @Html.DisplayFor(model => model.NHANVIEN.TenNV)
+                    </dd>
+
+                    <dt>
+                        @Html.LabelFor(model => model.Tieude, "Tiêu đề")
+                        @*
+                    @Html.DisplayNameFor(model => model.Tieude)
+                        *@
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Tieude)
+                    </dd>
+
+                    <dt>
+                        @Html.LabelFor(model => model.Noidung, "Nội dung")
+                        @*
+                    @Html.DisplayNameFor(model => model.Noidung)
+                        *@
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Noidung)
+                    </dd>
+
+                    <dt>
+                        @Html.LabelFor(model => model.Hinhanh, "Hình ảnh")
+                        @*
+                    @Html.DisplayNameFor(model => model.Hinhanh)
+                        *@
+                    </dt>
+
+                    <dd>
+                        <img src="@Url.Content("/images/"+Model.Hinhanh)" width="120px" />
+                    </dd>
+
+                    <dt>
+                        @Html.LabelFor(model => model.Ngaydang, "Ngày đăng")
+                        @*
+                    @Html.DisplayNameFor(model => model.Ngaydang)
+                        *@
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ngaydang)
+                    </dd>
+
+                    <dt>
+                        @Html.LabelFor(model => model.Ngaychinhsua, "Ngày chỉnh sửa")
+                        @*
+
+                    @Html.DisplayNameFor(model => model.Ngaychinhsua)
+                        *@
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ngaychinhsua)
+                    </dd>
+
+                </dl>
+            </div>
+
+            <div class="form-actions no-color">
+                @Html.ActionLink("Trở về", "BlogAdmin")
+            </div>
+
+        </div><!-- /.container-fluid -->
+        </div>
+        </div>
+
