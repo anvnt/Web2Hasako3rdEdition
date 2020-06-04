@@ -1,0 +1,7 @@
+﻿@model IEnumerable<UELWeb2Hasako.Models.DANHMUCHAISANKHO>
+    <ul class="custom_list clc">
+        @foreach (var item in Model)
+        {
+            <li><a class="clc" href="@Url.Action("SPTheodanhmuc","Hasako",new { id = item.MaDM })">@item.TenDM</a></li>
+        }
+    </ul>

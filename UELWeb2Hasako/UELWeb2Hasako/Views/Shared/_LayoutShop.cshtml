@@ -1,7 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using UELWeb2Hasako.Models;
+@using PagedList.Mvc;
+@model  PagedList.IPagedList<UELWeb2Hasako.Models.HAISANKHO>
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>@ViewBag.Title</title>
+    <title>Sản Phẩm</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="OneTech shop project">
@@ -11,38 +16,15 @@
     <link rel="stylesheet" type="text/css" href="../plugins/OwlCarousel2-2.2.1/owl.carousel.css">
     <link rel="stylesheet" type="text/css" href="../plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
     <link rel="stylesheet" type="text/css" href="../plugins/OwlCarousel2-2.2.1/animate.css">
-    <link rel="stylesheet" type="text/css" href="../plugins/slick-1.8.0/slick.css">
     <link rel="stylesheet" type="text/css" href="../plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
-
-    <!--Index styles-->
-    <link rel="stylesheet" type="text/css" href="../Content/main_styles.css">
-    <link rel="stylesheet" type="text/css" href="../Content/responsive.css">
-    <!--Shop styles-->
     <link rel="stylesheet" type="text/css" href="../Content/shop_styles.css">
     <link rel="stylesheet" type="text/css" href="../Content/shop_responsive.css">
-    <!--Product styles-->
-    <link rel="stylesheet" type="text/css" href="../Content/product_styles.css">
-    <link rel="stylesheet" type="text/css" href="../Content/product_responsive.css">
-    <!--Cart styles-->
-    <link rel="stylesheet" type="text/css" href="../Content/cart_styles.css">
-    <link rel="stylesheet" type="text/css" href="../Content/cart_responsive.css">
-    <!--Blog styles-->
-    <link rel="stylesheet" type="text/css" href="../Content/blog_styles.css">
-    <link rel="stylesheet" type="text/css" href="../Content/blog_responsive.css">
-    <!--Single blog styles-->
-    <link rel="stylesheet" type="text/css" href="../Content/blog_single_styles.css">
-    <link rel="stylesheet" type="text/css" href="../Content/blog_single_responsive.css">
-    <!--Contact styles-->
-    <link rel="stylesheet" type="text/css" href="../Content/contact_styles.css">
-    <link rel="stylesheet" type="text/css" href="../Content/contact_responsive.css">
-    <!--Regular styles-->
-    <link rel="stylesheet" type="text/css" href="../Content/regular_styles.css">
-    <link rel="stylesheet" type="text/css" href="../Content/regular_responsive.css">
+
 </head>
 <body>
 
     <div class="super_container">
-
+        <!-- Header -->
         <header class="header">
 
             <!-- Top Bar -->
@@ -76,8 +58,8 @@
                                 </div>
                                 <div class="top_bar_user">
                                     <div class="user_icon"><img src="../images/user.svg" alt=""></div>
-                                    <div><a href="#">Đăng ký</a></div>
-                                    <div><a href="#">Đăng nhập</a></div>
+                                    <div><a href="@Url.Action("Dangky", null, new { area = string.Empty, controller = "Nguoidung" }, Request.Url.Scheme )">Đăng ký</a></div>
+                                    <div><a href="@Url.Action("Dangnhap", null, new { area = string.Empty, controller = "Nguoidung" }, Request.Url.Scheme )">Đăng nhập</a></div>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +76,7 @@
                         <!-- Logo -->
                         <div class="col-lg-2 col-sm-3 col-3 order-1">
                             <div class="logo_container">
-                                <div class="logo"><a href="#">HaSaKo</a></div>
+                                <div class="logo"><a href="@Url.Action("IndexHasako", null, new { area = string.Empty, controller = "Hasako" },@Request.Url.Scheme )"><img src="~/images/hasakologo.png" style="width:114.39px;height:120px" /></a></div>
                             </div>
                         </div>
 
@@ -109,16 +91,9 @@
                                                 <div class="custom_dropdown_list">
                                                     <span class="custom_dropdown_placeholder clc">Tất cả danh mục</span>
                                                     <i class="fas fa-chevron-down"></i>
-                                                    <ul class="custom_list clc">
-                                                        <li><a class="clc" href="#">Tất cả danh mục</a></li>
-                                                        <li><a class="clc" href="#">Cá khô</a></li>
-                                                        <li><a class="clc" href="#">Mực khô</a></li>
-                                                        <li><a class="clc" href="#">Tôm khô</a></li>
-                                                        <li><a class="clc" href="#">Bạch tuộc khô</a></li>
-                                                        <li><a class="clc" href="#">Mực dẻo</a></li>
-                                                        <li><a class="clc" href="#">Bào ngư khô</a></li>
-                                                        <li><a class="clc" href="#">Vi cá khô</a></li>
-                                                    </ul>
+
+                                                    @Html.Action("CategoryTimkiem", "Hasako")
+
                                                 </div>
                                             </div>
                                             <button type="submit" class="header_search_button trans_300" value="Submit"><img src="../images/search.png" alt=""></button>
@@ -144,7 +119,7 @@
                                     <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                         <div class="cart_icon">
                                             <img src="../images/cart.png" alt="">
-                                            <div class="cart_count"><span>10</span></div>
+                                            <div class="cart_count"><span></span></div>
                                         </div>
                                         <div class="cart_content">
                                             <div class="cart_text"><a href="#">Giỏ hàng</a></div>
@@ -172,22 +147,22 @@
                                 <div class="cat_menu_container">
                                     <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
                                         <div class="cat_burger"><span></span><span></span><span></span></div>
-                                        <div class="cat_menu_text">danh mục</div>
+                                        <div class="cat_menu_text">Danh mục</div>
                                     </div>
-
-                                    <ul class="cat_menu">
-                                        <li class="hassubs">
-                                            <a href="#">Cá<i class="fas fa-chevron-right"></i></a>
-                                            <ul>
-                                                <!--<li class="hassubs">
-                                                    <a href="#">Menu Item<i class="fas fa-chevron-right"></i></a>
-                                                    <ul>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                    </ul>
-                                                </li>-->
+                                    @Html.Action("Category", "Hasako")
+                                    <!--   <ul class="cat_menu">
+                                                                        <li class="hassubs">
+                                                                            <a href="#">Cá<i class="fas fa-chevron-right"></i></a>
+                                                                            <ul>
+                                                                             <li class="hassubs">
+                                                <a href="#">Menu Item<i class="fas fa-chevron-right"></i></a>
+                                                <ul>
+                                                    <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
+                                                    <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
+                                                    <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
+                                                    <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
+                                                </ul>
+                                            </li>
                                                 <li><a href="#">Cá khô<i class="fas fa-chevron-right"></i></a></li>
                                                 <li><a href="#">Vi cá khô<i class="fas fa-chevron-right"></i></a></li>
                                             </ul>
@@ -202,14 +177,14 @@
                                         <li><a href="#">Tôm <i class="fas fa-chevron-right"></i></a></li>
                                         <li><a href="#">Bạch tuộc<i class="fas fa-chevron-right"></i></a></li>
                                         <li><a href="#">Bào ngư<i class="fas fa-chevron-right"></i></a></li>
-                                    </ul>
+                                    </ul>-->
                                 </div>
 
                                 <!-- Main Nav Menu -->
 
                                 <div class="main_nav_menu ml-auto">
                                     <ul class="standard_dropdown main_nav_dropdown">
-                                        <li><a href="#">Trang chủ<i class="fas fa-chevron-down"></i></a></li>
+                                        <li><a href="@Url.Action("IndexHasako", null, new { area = string.Empty, controller = "Hasako" }, Request.Url.Scheme )">Trang chủ<i class="fas fa-chevron-down"></i></a></li>
                                         <li class="hassubs">
                                             <a href="#">Khuyến mãi Sốc<i class="fas fa-chevron-down"></i></a>
                                             <ul>
@@ -226,9 +201,9 @@
                                                 <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="#">Cửa hàng<i class="fas fa-chevron-down"></i></a></li>
-                                        <li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
-                                        <li><a href="contact.html">Liên hệ<i class="fas fa-chevron-down"></i></a></li>
+                                        <li><a href="@Url.Action("Sanpham", null, new { area = string.Empty, controller = "Hasako" }, Request.Url.Scheme )">Cửa hàng<i class="fas fa-chevron-down"></i></a></li>
+                                        <li><a href="@Url.Action("Blog", null, new { area = string.Empty, controller = "Hasako" }, Request.Url.Scheme )">Blog<i class="fas fa-chevron-down"></i></a></li>
+                                        <li><a href="@Url.Action("LienHe", null, new { area = string.Empty, controller = "Hasako" },@Request.Url.Scheme )">Liên hệ<i class="fas fa-chevron-down"></i></a></li>
                                     </ul>
                                 </div>
 
@@ -337,10 +312,202 @@
 
         </header>
 
-        <div>
-            @RenderBody()
+        <!-- Home -->
+        <div class="home">
+            <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
+            <div class="home_overlay"></div>
+            <div class="home_content d-flex flex-column align-items-center justify-content-center">
+                <h2 class="home_title">Cá, Tôm, Mực đòi làm khó tao</h2>
+            </div>
         </div>
 
+        <!--Shop -->
+        <div class="shop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+
+                        <!-- Shop Sidebar -->
+                        <div class="shop_sidebar">
+                            <div class="sidebar_section">
+                                @Html.Action("Danhmuc", "Hasako")
+                            </div>
+
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-lg-9">
+
+                        <!-- Shop Content -->
+
+                        <div class="shop_content">
+                            <div class="shop_bar clearfix">
+                                <div class="shop_product_count"><span>7</span> products found</div>
+                                <div class="shop_sorting">
+                                    <span>Sắp xếp theo:</span>
+                                    <ul>
+                                        <li>
+
+                                            <span class="sorting_text">Tên <i class="fas fa-chevron-down"></span></i>
+                                            <ul>
+
+                                                <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>Tên</li>
+                                                <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "price" }'>Giá</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Product Item -->
+
+                            <div class="product_grid">
+                                <div class="product_grid_border"></div>
+
+                                @RenderBody();
+
+
+                            </div>
+
+
+                            <!-- Shop Page Navigation -->
+                            <div class="shop_page_nav d-flex flex-row">
+                               
+                                <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>
+                                <ul class="page_nav d-flex flex-row">
+                                    @Html.PagedListPager(Model, page => Url.Action("SanPham", new { page = page }))
+                                </ul>
+                                <div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Recently Viewed -->
+
+        <div class="viewed">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="viewed_title_container">
+                            <h3 class="viewed_title">Recently Viewed</h3>
+                            <div class="viewed_nav_container">
+                                <div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
+                                <div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="viewed_slider_container">
+
+                            <!-- Recently Viewed Slider -->
+
+                            <div class="owl-carousel owl-theme viewed_slider">
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/view_1.jpg" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$225<span>$300</span></div>
+                                            <div class="viewed_name"><a href="#">Beoplay H7</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/view_2.jpg" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$379</div>
+                                            <div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/view_3.jpg" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$225</div>
+                                            <div class="viewed_name"><a href="#">Samsung J730F...</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/view_4.jpg" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$379</div>
+                                            <div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/view_5.jpg" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$225<span>$300</span></div>
+                                            <div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/view_6.jpg" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$375</div>
+                                            <div class="viewed_name"><a href="#">Speedlink...</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Newsletter -->
 
         <div class="newsletter">
@@ -418,10 +585,10 @@
                         <div class="footer_column">
                             <div class="footer_title">Chuyển trang</div>
                             <ul class="footer_list footer_list_2">
-                                <li><a href="#">Trang chủ</a></li>
-                                <li><a href="#">Cửa hàng</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Liên hệ</a></li>
+                                <li><a href="@Url.Action("IndexHasako", null, new { area = string.Empty, controller = "Hasako" }, Request.Url.Scheme )">Trang chủ</a></li>
+                                <li><a href="@Url.Action("Sanpham", null, new { area = string.Empty, controller = "Hasako" }, Request.Url.Scheme )">Cửa hàng</a></li>
+                                <li><a href="@Url.Action("GetAllBlog", null, new { area = string.Empty, controller = "Blog" },@Request.Url.Scheme )">Blog</a></li>
+                                <li><a href="@Url.Action("LienHe", null, new { area = string.Empty, controller = "Hasako" },@Request.Url.Scheme )">Liên hệ</a></li>
                             </ul>
                         </div>
                     </div>
@@ -446,10 +613,12 @@
         </footer>
 
 
+
     </div>
 
+
     <!--Scripts chung-->
-    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Content/bootstrap4/popper.js"></script>
     <script src="../Content/bootstrap4/bootstrap.min.js"></script>
     <script src="../plugins/greensock/TweenMax.min.js"></script>
@@ -458,7 +627,7 @@
     <script src="../plugins/greensock/animation.gsap.min.js"></script>
     <script src="../plugins/greensock/ScrollToPlugin.min.js"></script>
     <script src="../plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="../plugins/parallax-js-master/parallax.min.js"></script>
+
     <script src="../plugins/easing/easing.js"></script>
 
     <!--Shop scripts-->
@@ -466,19 +635,7 @@
     <script src="../plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="../plugins/parallax-js-master/parallax.min.js"></script>
     <script src="../Scripts/shop_custom.js"></script>
-    <!--Product scripts-->
-    <script src="../Scripts/product_custom.js"></script>
-    <!--Cart scripts-->
-    <script src="../Scripts/cart_custom.js"></script>
-    <!--Blog scripts-->
-    <script src="../Scripts/blog_custom.js"></script>
-    <!--Single blog scripts-->
-    <script src="../Scripts/blog_single_custom.js"></script>
-    <!--contact scripts-->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-    <script src="../Scripts/contact_custom.js"></script>
-    <!--Regular scripts-->
-    <script src="../Scripts/regular_custom.js"></script>
+
 
 </body>
 </html>

@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using UELWeb2Hasako.Models;
+using PagedList;
+using PagedList.Mvc;
+
 
 namespace UELWeb2Hasako.Controllers
 {
@@ -104,19 +108,65 @@ namespace UELWeb2Hasako.Controllers
             return PartialView(Models.BanChayNhat.LaySanPham(3));
         }
         //Các bạn sections
-        public ActionResult SanPham()
-        {
-            var sanphammoi = Laysanphammoi(16);
-            return View(sanphammoi);
+        public ActionResult SanPham(int ? page)
+        {   //Tạo biến quy định số sp/ 1 trang
+            int pageSize = 15;
+            int pageNum = (page ?? 1);
+            // var sanpham = from sp in data.HAISANKHOs select sp;
+            //return View(sanpham);
+            var sanphammoi = Laysanphammoi(60);
+            return View(sanphammoi.ToList().OrderBy(n=>n.MaHS).ToPagedList(pageNum, pageSize));
         }
         private List<HAISANKHO> Laysanphammoi(int count)
         {
             return data.HAISANKHOs.OrderByDescending(a => a.Ngaycapnhat).Take(count).ToList();
         }
-        public ActionResult ChiTietSanPham()
+        /*public ActionResult ChiTietSanPham(int id)
+         { using (dbHasakoProjectDataContext data = new dbHasakoProjectDataContext()) { 
+             List<HAISANKHO> hAISANKHOs = data.HAISANKHOs.ToList();
+             List<MOTAHAISANKHO> mOTAHAISANKHOs = data.MOTAHAISANKHOs.ToList();
+             List<DANHMUCHAISANKHO> dANHMUCHAISANKHOs = data.DANHMUCHAISANKHOs.ToList();
+             var spdanh = from c in dANHMUCHAISANKHOs
+                          join a in hAISANKHOs on c.MaDM equals a.MaDM into table1
+                          from a in table1.ToList()
+                          join b in mOTAHAISANKHOs on a.MaHS equals b.MaHS into table2
+                          from b in table2.GroupBy(x => x.MaHS).Select(x => x.FirstOrDefault()).ToList()
+                          where a.MaHS ==id
+                          select new ViewModel
+                          {
+                        haisankho = a,
+                          motahaisankho =b,
+                          danhmuc=c
+                          };
+             return View(spdanh);
+         }*/
+        /*var sanpham = from s in data.HAISANKHOs where s.MaHS == id select s;
+         return View(sanpham.Single());
+
+
+        return View(ProductDetail.LaySanPham());
+    };*/
+
+        public ActionResult Details(int id) 
         {
-            return View();
+            var sp = from s in data.HAISANKHOs where s.MaHS == id select s;
+            return View(sp.Single());
         }
+
+        /*public ActionResult ChiTietHinhAnh(int id)
+        {  List < HAISANKHO > hAISANKHOs = data.HAISANKHOs.ToList();
+            List<MOTAHAISANKHO> mOTAHAISANKHOs = data.MOTAHAISANKHOs.ToList();
+            var sphinh = (from a in hAISANKHOs
+                          join b in mOTAHAISANKHOs on a.MaHS equals b.MaHS into table1
+                          from b in table1.ToList()
+                          where a.MaHS == id
+                          select new ViewModel
+                          {
+                              haisankho = a,
+                              motahaisankho = b
+                          });
+            return PartialView(sphinh);
+        }*/
         public ActionResult GioHang()
         {
             return View();
@@ -139,10 +189,24 @@ namespace UELWeb2Hasako.Controllers
             var Danhmuc = from dm in data.DANHMUCHAISANKHOs select dm;
             return PartialView(Danhmuc);
         }
-        public ActionResult SPTheodanhmuc(int id)
+        public ActionResult Category()
         {
+            var category = from cate in data.DANHMUCHAISANKHOs select cate;
+            return PartialView(category);
+        }
+        public ActionResult CategoryTimkiem()
+        {
+            var category = from cate in data.DANHMUCHAISANKHOs select cate;
+            return PartialView(category);
+        }
+        public ActionResult SPTheodanhmuc(int id, int? page)
+        {
+            int pageSize = 15;
+            int pageNum = (page ?? 1);
             var sanpham = from s in data.HAISANKHOs where s.MaDM == id select s;
-            return View(sanpham);
+            return View(sanpham.ToList().OrderBy(n => n.MaHS).ToPagedList(pageNum, pageSize));
+        }
+    
+         
         }
     }
-}

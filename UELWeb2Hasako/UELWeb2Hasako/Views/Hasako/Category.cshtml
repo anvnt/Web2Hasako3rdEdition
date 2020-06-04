@@ -1,0 +1,7 @@
+﻿@model IEnumerable<UELWeb2Hasako.Models.DANHMUCHAISANKHO>
+    <ul class="cat_menu">
+        @foreach (var item in Model)
+        {
+            <li><a href="@Url.Action("SPTheodanhmuc","Hasako",new { id = item.MaDM })">@item.TenDM <i class="fas fa-chevron-right"></i></a></li>
+        }
+    </ul>
