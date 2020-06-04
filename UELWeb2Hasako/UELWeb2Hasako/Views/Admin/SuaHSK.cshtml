@@ -42,7 +42,7 @@
             </div>
         </div>*@
                     <div class="form-group">
-                        @Html.LabelFor(model => model.TenHS, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.TenHS,"Tên hải sản", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.TenHS, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.TenHS, "", new { @class = "text-danger" })
@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Dongia, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Dongia,"Đơn giá", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.Dongia, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Dongia, "", new { @class = "text-danger" })
@@ -58,23 +58,23 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Mota, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Mota,"Mô tả", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @*<textarea name="Mota">@Model.Mota</textarea>
+                            <textarea name="Mota">@Model.Mota</textarea>
                 <script>
                     tinymce.init({
                         selector: 'textarea',
                         plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
                         toolbar_mode: 'floating',
                     });
-                </script>*@
-                            @Html.EditorFor(model => model.Mota, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Mota, "", new { @class = "text-danger" })
+                </script>
+                            @*@Html.EditorFor(model => model.Mota, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Mota, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Anhbia, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Anhbia, "Ảnh bìa",htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             Chọn ảnh mới
                             <input type="file" name="fileUPload" />
@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Ngaycapnhat, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Ngaycapnhat, "Ngày cập nhật", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.Ngaycapnhat, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Ngaycapnhat, "", new { @class = "text-danger" })
@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Soluongton, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Soluongton, "Số lượng tồn", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.Soluongton, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Soluongton, "", new { @class = "text-danger" })
@@ -110,7 +110,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.MaDM, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.MaDM,"Mã danh mục", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @*@Html.DropDownList("MaDM")*@
                             @Html.EditorFor(model => model.MaDM, new { htmlAttributes = new { @class = "form-control" } })
@@ -119,7 +119,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.MaNH, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.MaNH, "Mã nhập hàng", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.MaNH, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.MaNH, "", new { @class = "text-danger" })

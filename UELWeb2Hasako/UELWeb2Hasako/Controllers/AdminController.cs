@@ -108,6 +108,7 @@ namespace UELWeb2Hasako.Controllers
             data.SubmitChanges();
             return RedirectToAction("QuanLySanPham");
         }
+        [ValidateInput(false)]
         public ActionResult SuaHSK(int id)
         {
             HAISANKHO hsk = data.HAISANKHOs.FirstOrDefault(n => n.MaHS == id);
@@ -116,7 +117,7 @@ namespace UELWeb2Hasako.Controllers
                 return View(hsk);
             }
             hsk.MaHS =int.Parse(Request.Form["MaHS"]);
-            hsk.TenHS = Request.Form["TenKh"];
+            hsk.TenHS = Request.Form["TenHS"];
             hsk.Dongia =int.Parse(Request.Form["Dongia"]);
             hsk.Mota = Request.Form["Email"];
             HttpPostedFileBase file = Request.Files["Anhbia"];
