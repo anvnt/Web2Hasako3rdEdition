@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Xác nhận thông tin sản phẩm cần xóa</h1>
+                    <h1 class="m-0 text-dark">Xác nhận thông tin đơn hàng cần xóa</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -26,7 +26,7 @@
     <section class="content">
         <div class="container-fluid">
 
-            <h3>Bạn chắc chắn muốn xóa sản phẩm này?</h3>
+            <h3>Bạn chắc chắn muốn đơn hàng này? Thao tác này đồng nghĩa với việc mọi sản phẩm trong đơn hàng cũng xẽ bị xóa.</h3>
             <div>
                 <hr />
                 <dl class="dl-horizontal">
@@ -93,7 +93,12 @@
                     <dd>
                         @Html.DisplayFor(model => model.Thanhtien)
                     </dd>
-
+                    <dt>
+                        Danh sách sản phẩm
+                    </dt>
+                    <dd>
+                        @Html.Action("QuanLyChiTietDonHang", "Admin", new { id = Model.MaDH })
+                    </dd>
                 </dl>
 
                 @using (Html.BeginForm())

@@ -29,6 +29,23 @@ namespace UELWeb2Hasako.Controllers
         public ActionResult IndexHasako()
         {
             ViewBag.Title = "Hasako";
+            // Lấy cookie cũ tên views
+            var views = Request.Cookies["views"];
+            // Nếu chưa có cookie cũ -> tạo mới
+            if (views == null)
+            {
+                views = new HttpCookie("views");
+            }
+            // Đặt thời hạn tồn tại của cookie
+            views.Expires = DateTime.Now.AddMonths(1);
+            // Gửi cookie về client để lưu lại
+            Response.Cookies.Add(views);
+            // Lấy List<int> chứa mã hàng đã xem từ cookie
+            var keys = views.Values
+                .AllKeys.Select(k => int.Parse(k)).ToList();
+            // Truy vấn hàng đã xem
+            ViewBag.Views = data.HAISANKHOs
+                .Where(p => keys.Contains(p.MaHS));
             return View();
         }
         public ActionResult SanPhamMoiTatCa()
@@ -56,6 +73,21 @@ namespace UELWeb2Hasako.Controllers
             DANHMUCHAISANKHO dm = data.DANHMUCHAISANKHOs.FirstOrDefault(x => x.MaDM == spmoi.MaDM);
             string tendm = dm.TenDM;
             ViewBag.tendm = tendm;
+            List<DANHGIA> ct = data.DANHGIAs.ToList();
+                int? sum = 0; int? dg = 0; int dem = 0; int? diem = 0;
+                foreach (var c in ct)
+                {
+                    if (c.MaHS == spmoi.MaHS)
+                    {
+                        dg += c.Diem;
+                        dem++;
+                    }
+                }
+                if (dem != 0)
+                {
+                    diem = dg / dem;
+                }
+            ViewBag.diem = diem;
             return PartialView(spmoi);
         }
         //Section danh mục phổ biến
@@ -85,7 +117,8 @@ namespace UELWeb2Hasako.Controllers
         //Sản phẩm được review tốt, chưa code
         public ActionResult TopDanhGiaTot()
         {
-            return PartialView();
+            var sp = DanhGia.LaySanPham(6);
+            return PartialView(sp);
         }
         public ActionResult BanChayNhatTop20()
         {
@@ -112,6 +145,68 @@ namespace UELWeb2Hasako.Controllers
         private List<HAISANKHO> Laysanphammoi(int count)
         {
             return data.HAISANKHOs.OrderByDescending(a => a.Ngaycapnhat).Take(count).ToList();
+        }
+
+        public ActionResult Details(int id)
+        {
+            var sp = from s in data.HAISANKHOs where s.MaHS == id select s;
+            List<DANHGIA> ct = data.DANHGIAs.ToList();
+            int? sum = 0; int? dg = 0; int dem = 0; int? diem = 0;
+            foreach (var c in ct)
+            {
+                if (c.MaHS == id)
+                {
+                    dg += c.Diem;
+                    dem++;
+                }
+            }
+            if (dem != 0)
+            {
+                diem = dg / dem;
+            }
+            ViewBag.diem = diem;
+            // Lấy cookie cũ tên views
+            var views = Request.Cookies["views"];
+            // Nếu chưa có cookie cũ -> tạo mới
+            if (views == null)
+            {
+                views = new HttpCookie("views");
+            }
+            // Bổ sung mặt hàng đã xem vào cookie
+            views.Values[id.ToString()] = id.ToString();
+            // Đặt thời hạn tồn tại của cookie
+            views.Expires = DateTime.Now.AddMonths(1);
+            // Gửi cookie về client để lưu lại
+            Response.Cookies.Add(views);
+
+            // Lấy List<int> chứa mã hàng đã xem từ cookie
+            var keys = views.Values
+                .AllKeys.Select(k => int.Parse(k)).ToList();
+            // Truy vấn hàng đã xem
+            ViewBag.Views = data.HAISANKHOs
+                .Where(p => keys.Contains(p.MaHS));
+            return View(sp.Single());
+        }
+        public ActionResult DanhSachDanhGia(int id)
+        {
+            List<DANHGIA> dsdg = data.DANHGIAs.Where(a => a.MaHS == id).ToList();
+            return PartialView(dsdg);
+        }
+        [HttpGet]
+        public ActionResult ThemMoiDanhGia(DanhGia dg)
+        {
+            return View(dg);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult ThemMoiDanhGia(DANHGIA dg)
+        {
+            if (ModelState.IsValid)
+            {
+                    data.DANHGIAs.InsertOnSubmit(dg);
+                    data.SubmitChanges();
+            }
+            return RedirectToAction("Details");
         }
         public ActionResult ChiTietSanPham()
         {

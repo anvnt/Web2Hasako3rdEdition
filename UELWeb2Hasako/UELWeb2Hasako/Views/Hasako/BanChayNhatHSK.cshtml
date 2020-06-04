@@ -8,8 +8,12 @@
             <div class="bestsellers_content">
                 <div class="bestsellers_category"><a href="#">@hs.TenDM</a></div>
                 <div class="bestsellers_name"><a href="product.html">@hs.TenHS</a></div>
-                <div class="rating_r rating_r_4 bestsellers_rating"><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="bestsellers_price ">@hs.DonGia VNĐ</div>
+                <div class="rating_r rating_r_4 bestsellers_rating">
+                    @for (int i = 1; i <= hs.Danhgia; i++)
+                    {
+                        <i></i>
+                    }
+                </div>                <div class="bestsellers_price ">@string.Format("{0:0,0}", hs.DonGia) VNĐ</div>
             </div>
         </div>
         <div class="bestsellers_fav active"><i class="fas fa-heart"></i></div>

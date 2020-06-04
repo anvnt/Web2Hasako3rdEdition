@@ -108,50 +108,78 @@ namespace UELWeb2Hasako.Controllers
             data.SubmitChanges();
             return RedirectToAction("QuanLySanPham");
         }
-        [HttpGet]
         public ActionResult SuaHSK(int id)
         {
-            HAISANKHO hsk = data.HAISANKHOs.SingleOrDefault(n => n.MaHS == id);
-            if (hsk == null)
+            HAISANKHO hsk = data.HAISANKHOs.FirstOrDefault(n => n.MaHS == id);
+            if (Request.Form.Count == 0)
             {
-                Response.StatusCode = 404;
-                return null;
+                return View(hsk);
             }
+            hsk.MaHS =int.Parse(Request.Form["MaHS"]);
+            hsk.TenHS = Request.Form["TenKh"];
+            hsk.Dongia =int.Parse(Request.Form["Dongia"]);
+            hsk.Mota = Request.Form["Email"];
+            HttpPostedFileBase file = Request.Files["Anhbia"];
+            if(file!=null && file.FileName!="")
+            {
+                string serverPath = HttpContext.Server.MapPath("~/images/");
+                string filePath = serverPath + "/" + file.FileName;
+                file.SaveAs(filePath);
+                hsk.Anhbia = file.FileName;
+            }
+            hsk.Ngaycapnhat = DateTime.Parse(Request.Form["Ngaycapnhat"]);
+            hsk.Donvi = Request.Form["Donvi"];
+            hsk.Soluongton =int.Parse(Request.Form["Soluongton"]);
+            hsk.MaDM =int.Parse(Request.Form["MaDM"]);
+            hsk.MaNH =int.Parse(Request.Form["MaNH"]);
             ViewBag.MaDM = new SelectList(data.DANHMUCHAISANKHOs.ToList().OrderBy(n => n.TenDM), "MaDM", "TenDM");
-            return View(hsk);
-
-        }
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult SuaHSK(HAISANKHO hsk, HttpPostedFileBase fileUpload)
-        {
-            ViewBag.MaDM = new SelectList(data.DANHMUCHAISANKHOs.ToList().OrderBy(n => n.TenDM), "MaDM", "TenDM");
-            if (fileUpload == null)
-            {
-                ViewBag.Thongbao = "Vui lòng chọn hình ảnh";
-                return View();
-            }
-            else
-            {
-                if (ModelState.IsValid)
-                {
-                    var fileName = Path.GetFileName(fileUpload.FileName);
-                    var path = Path.Combine(Server.MapPath("~/images"), fileName);
-                    if (System.IO.File.Exists(path))
-                    {
-                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
-                    }
-                    else
-                    {
-                        fileUpload.SaveAs(path);
-                    }
-                    hsk.Anhbia = fileName;
-                    UpdateModel(hsk);
-                    data.SubmitChanges();
-                }
-            }
+            data.SubmitChanges();
             return RedirectToAction("QuanLySanPham");
         }
+        //[HttpGet]
+        //public ActionResult SuaHSK(int id)
+        //{
+        //    HAISANKHO hsk = data.HAISANKHOs.SingleOrDefault(n => n.MaHS == id);
+        //    if (hsk == null)
+        //    {
+        //        Response.StatusCode = 404;
+        //        return null;
+        //    }
+        //    ViewBag.MaDM = new SelectList(data.DANHMUCHAISANKHOs.ToList().OrderBy(n => n.TenDM), "MaDM", "TenDM");
+        //    return View(hsk);
+
+        //}
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public ActionResult SuaHSK(HAISANKHO hsk, HttpPostedFileBase fileUpload)
+        //{
+        //    ViewBag.MaDM = new SelectList(data.DANHMUCHAISANKHOs.ToList().OrderBy(n => n.TenDM), "MaDM", "TenDM");
+        //    if (fileUpload == null)
+        //    {
+        //        ViewBag.Thongbao = "Vui lòng chọn hình ảnh";
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var fileName = Path.GetFileName(fileUpload.FileName);
+        //            var path = Path.Combine(Server.MapPath("~/images"), fileName);
+        //            if (System.IO.File.Exists(path))
+        //            {
+        //                ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+        //            }
+        //            else
+        //            {
+        //                fileUpload.SaveAs(path);
+        //            }
+        //            hsk.Anhbia = fileName;
+        //            UpdateModel(hsk);
+        //            data.SubmitChanges();
+        //        }
+        //    }
+        //    return RedirectToAction("QuanLySanPham");
+        //}
 
         //Quản lý sản phẩm - Võ Nguyễn Tâm An - End
         //Quản lý đơn hàng - Võ Nguyễn Tâm An - Start
@@ -161,10 +189,6 @@ namespace UELWeb2Hasako.Controllers
             //int pageSize = 20; 
             //return View(data.HAISANKHOs.ToList().OrderBy(n=>n.MaHS).ToPagedList(pageNumber, pageSize));
             return View(data.DONHANGs.ToList());
-        }
-        public ActionResult SuaDonHang()
-        {
-            return View();
         }
         public ActionResult ChiTietDonHang(int id)
         {
@@ -180,6 +204,10 @@ namespace UELWeb2Hasako.Controllers
         public ActionResult QuanLyChiTietDonHang(int id)
         {
             return PartialView(data.CHITIETDONHANGs.Where(n=>n.MaDH==id).ToList());
+        }
+        public ActionResult QuanLyChiTietDonHangEditable(int id)
+        {
+            return PartialView(data.CHITIETDONHANGs.Where(n => n.MaDH == id).ToList());
         }
         [HttpGet]
         public ActionResult XoaDonHang(int id)
@@ -208,22 +236,31 @@ namespace UELWeb2Hasako.Controllers
             return RedirectToAction("QuanLyDonHang");
         }
         [HttpGet]
-        public ActionResult ThemMoiDonHang()
+        public ActionResult SuaDonHang (int id)
         {
-            ViewBag.MaKH = new SelectList(data.KHACHHANGs.ToList().OrderBy(n => n.TenKh), "MaKH", "TenKh");
-            ViewBag.MaNV = new SelectList(data.NHANVIENs.ToList().OrderBy(n => n.TenNV), "MaNV", "TenNV");
-            return View();
+            DONHANG dh = data.DONHANGs.SingleOrDefault(n => n.MaDH == id);
+            if (dh == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            ViewBag.MaKH = new SelectList(data.KHACHHANGs.ToList().OrderBy(n => n.TenKh), "MaKH", "TenKh",dh.MaKH);
+            ViewBag.MaNV = new SelectList(data.NHANVIENs.ToList().OrderBy(n => n.TenNV), "MaNV", "TenNV",dh.MaNV);
+            ViewBag.Tinhtranggiaohang = new SelectList(data.TINHTRANGGIAOHANGs.ToList().OrderBy(n => n.MaTTGH), "MaTTGH", "NoiDungAdmin",dh.Tinhtranggiaohang);
+            return View(dh);
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult ThemMoiDonHang(DONHANG dh)
+        public ActionResult SuaDonHang (DONHANG dh)
         {
-            ViewBag.MaKH = new SelectList(data.KHACHHANGs.ToList().OrderBy(n => n.TenKh), "MaKH", "TenKh");
-            ViewBag.MaNV = new SelectList(data.NHANVIENs.ToList().OrderBy(n => n.TenNV), "MaNV", "TenNV"); 
-            data.DONHANGs.InsertOnSubmit(dh);
+            ViewBag.MaKH = new SelectList(data.KHACHHANGs.ToList().OrderBy(n => n.TenKh), "MaKH", "TenKh",dh.MaKH);
+            ViewBag.MaNV = new SelectList(data.NHANVIENs.ToList().OrderBy(n => n.TenNV), "MaNV", "TenNV",dh.MaNV);
+            ViewBag.Tinhtranggiaohang = new SelectList(data.TINHTRANGGIAOHANGs.ToList().OrderBy(n => n.MaTTGH), "MaTTGH", "NoiDungAdmin",dh.Tinhtranggiaohang);
+            UpdateModel(dh);
             data.SubmitChanges();
             return RedirectToAction("QuanLyDonHang");
         }
+        //Quản lý đơn hàng - Võ Nguyễn Tâm An - End
 
     }
 }

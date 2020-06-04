@@ -68,15 +68,7 @@
                     <dt>Tình trạng giao hàng</dt>
 
                     <dd>
-                        @if (Model.Tinhtranggiaohang == true)
-                        {
-                            @:Đã giao hàng
-                        }
-                        else
-                        {
-                            @:Chưa giao hàng
-                        }
-                        @*@Html.DisplayFor(model => model.Tinhtranggiaohang)*@
+                        @Html.DisplayFor(model => model.TINHTRANGGIAOHANG1.NoiDungAdmin)
                     </dd>
 
                     <dt>Thành tiền</dt>
@@ -89,7 +81,6 @@
                     </dt>
                     <dd>
                         @Html.Action("QuanLyChiTietDonHang", "Admin", new { id = Model.MaDH })
-
                     </dd>
                 </dl>
             </div>

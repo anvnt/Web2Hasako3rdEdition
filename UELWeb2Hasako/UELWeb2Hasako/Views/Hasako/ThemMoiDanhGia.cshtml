@@ -1,0 +1,12 @@
+﻿@model UELWeb2Hasako.Models.DanhGia
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.TextBoxFor(model => model.MaHS, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.MaKH, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.Diem, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.NoiDungDanhGia, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.NgayDanhGia, new { @class = "form-control" })
+        <button class="btn btn-danger">Gửi</button>
+    </div>
+}

@@ -2164,8 +2164,9 @@ select option
 .rating_r_5 i:nth-child(3)::before{content: "\f005";}
 .rating_r_5 i:nth-child(4)::before{content: "\f005";}
 .rating_r_5 i:nth-child(5)::before{content: "\f005";}
-.banner_2_button
-{
+
+
+.banner_2_button {
 	margin-top: 43px;
 }
 .banner_2_dots

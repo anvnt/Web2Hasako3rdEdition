@@ -9,10 +9,10 @@ namespace UELWeb2Hasako.Models
     {
         public int MaHS { get; set;  }
         public string TenHS { get; set; }
-        public int DonGia { get; set; }
+        public double DonGia { get; set; }
         public string AnhBia { get; set; }
         public int PhanTramGiam { get; set; }
-        public double ? GiaKM { get; set;  }
+        public double GiaKM { get; set;  }
         public static List<SanPhamDangGiamGia> LaySanPham()
         {
             dbHasakoProjectDataContext data = new dbHasakoProjectDataContext();
@@ -25,9 +25,12 @@ namespace UELWeb2Hasako.Models
                 HAISANKHO hs = data.HAISANKHOs.Where(x=>x.MaHS== spkm.MaHS).FirstOrDefault();
                 if (spkm.TinhTrangKM == true)
                 {
-                    double giakm = Convert.ToDouble(hs.Dongia) * (1 - spkm.PhanTramGiam / 100);
+                    //double giakm = giagoc * (1 - (spkm.PhanTramGiam / 100));
+                    double ptd = Convert.ToDouble(spkm.PhanTramGiam);
+                    double dgd = Convert.ToDouble(hs.Dongia);
+                    double km = dgd * (1 - ptd / 100);
                     dsHS.Add(new SanPhamDangGiamGia() 
-                    { MaHS = hs.MaHS, TenHS = hs.TenHS, DonGia = hs.Dongia, AnhBia = hs.Anhbia, PhanTramGiam = spkm.PhanTramGiam, GiaKM = giakm });
+                    { MaHS = hs.MaHS, TenHS = hs.TenHS, DonGia = hs.Dongia, AnhBia = hs.Anhbia, PhanTramGiam = spkm.PhanTramGiam, GiaKM = km });
                 }
                 //int pt = rnd.Next(10, 30);
             //    double ptd = Convert.ToDouble(pt);

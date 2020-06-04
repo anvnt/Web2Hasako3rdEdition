@@ -67,8 +67,14 @@
                                         <div class="product_border">
                                             <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/images/@HAISANKHO.Anhbia" alt="@HAISANKHO.TenHS"></div>
                                             <div class="product_content">
-                                                <div class="product_price">@HAISANKHO.Dongia</div>
-                                                <div class="product_name"><div><a href="@HAISANKHO.TenHS" tabindex="0"></a></div></div>
+                                                <a href="@Url.Action("Details", "Hasako", new { id = HAISANKHO.MaHS })">
+
+                                                    <div class="product_price">@string.Format("{0:0,0}", HAISANKHO.Dongia)</div>
+                                                </a>
+                                                <a href="@Url.Action("Details", "Hasako", new { id = HAISANKHO.MaHS })">
+
+                                                    <div class="product_name"><div><a href="@HAISANKHO.TenHS" tabindex="0"></a></div></div>
+                                                    </a>
                                             </div>
                                             <div class="product_fav"><i class="fas fa-heart"></i></div>
                                             <ul class="product_marks">

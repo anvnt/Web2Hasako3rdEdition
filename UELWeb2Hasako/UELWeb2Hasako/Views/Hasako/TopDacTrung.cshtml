@@ -1,24 +1,135 @@
 ﻿@model IEnumerable<UELWeb2Hasako.Models.HAISANKHO>
 
+@{
+    var spgiamgia = UELWeb2Hasako.Models.SanPhamDangGiamGia.LaySanPham();
+    var spmoi = UELWeb2Hasako.Models.SanPhamMoi.LaySanPham(16);
+}
+
 @foreach (var sp in Model)
 {
-    <div class="featured_slider_item">
-        <div class="border_active"></div>
-        <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-            <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/images/@sp.Anhbia" alt="@sp.TenHS"></div>
-            <div class="product_content">
-                <div class="product_price">@sp.Dongia</div>
-                <div class="product_name"><div><a href="product.html">@sp.TenHS</a></div></div>
-                <div class="product_extras">
-                    <button class="product_cart_button active">Mua ngay</button>
+    bool hienthi = false;
+    foreach (var spgg in spgiamgia)
+    {
+        if (sp.MaHS == spgg.MaHS)
+        {
+            hienthi = true;
+            <div class="featured_slider_item">
+                <div class="border_active"></div>
+                <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                    <a href="@Url.Action("Details", "Hasako", new { id = spgg.MaHS })">
+                        <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/images/@spgg.AnhBia" alt="@sp.TenHS"></div>
+                    </a>
+                    <div class="product_content">
+                        <a href="@Url.Action("Details", "Hasako", new { id = spgg.MaHS })">
+
+                            <div class="product_price discount">
+                                @string.Format("{0:0,0}", spgg.GiaKM) đ<span>
+                                    @string.Format("{0:0,0}", spgg.DonGia) đ
+                                </span>
+                            </div>
+                        </a>
+
+                        <div class="product_name">
+                            <div>
+                                <a href="@Url.Action("Details", "Hasako", new { id = spgg.MaHS })">
+                                    @sp.TenHS
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product_extras">
+                            <button class="product_cart_button">Mua ngay</button>
+                        </div>
+                    </div>
+                    <div class="product_fav"><i class="fas fa-heart"></i></div>
+                    <ul class="product_marks">
+                        <li class="product_mark product_discount">@spgg.PhanTramGiam%</li>
+                        <li class="product_mark product_new"></li>
+                    </ul>
                 </div>
             </div>
-            <div class="product_fav"><i class="fas fa-heart"></i></div>
-            <ul class="product_marks">
-                <li class="product_mark product_discount"></li>
-                @*<li class="product_mark product_new"></li>*@
-            </ul>
-        </div>
-    </div>
+            break;
+        }
+    }
 
+    if (hienthi == false)
+    {
+        foreach (var spm in spmoi)
+        {
+            if (spm.MaHS == sp.MaHS)
+            {
+                hienthi = true;
+                <div class="featured_slider_item">
+                    <div class="border_active"></div>
+                    <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+                        <a href="@Url.Action("Details", "Hasako", new { id = spm.MaHS })">
+                            <div class="product_image d-flex flex-column align-items-center justify-content-center">
+                                <img src="~/images/@spm.AnhBia" alt="@spm.TenHS">
+                            </div>
+                        </a>
+                        <div class="product_content">
+                            <div class="product_price">
+                                <a href="@Url.Action("Details", "Hasako", new { id = spm.MaHS })">
+                                    @string.Format("{0:0,0}", spm.DonGia) VNĐ
+                                </a>
+                            </div>
+                            <div class="product_name">
+                                <div>
+                                    <a href="@Url.Action("Details", "Hasako", new { id = spm.MaHS })">
+                                        @spm.TenHS
+                                    </a>
+                                </div>
+
+                            </div>
+
+                            <div class="product_extras">
+                                <button class="product_cart_button">Mua ngay</button>
+                            </div>
+                        </div>
+                        <div class="product_fav"><i class="fas fa-heart"></i></div>
+                        <ul class="product_marks">
+                            <li class="product_mark product_new">mới</li>
+                        </ul>
+                    </div>
+                </div>
+                break;
+            }
+        }
+    }
+    if (hienthi == false)
+    { <div class="featured_slider_item">
+            <div class="border_active"></div>
+            <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+                <a href="@Url.Action("Details", "Hasako", new { id = sp.MaHS })">
+
+                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/images/@sp.Anhbia" alt="@sp.TenHS"></div>
+                </a>
+                <div class="product_content">
+                    <a href="@Url.Action("Details", "Hasako", new { id = sp.MaHS })">
+
+                        <div class="product_price">
+                            @string.Format("{0:0,0}", sp.Dongia) VNĐ
+                        </div>
+                    </a>
+
+                    <div class="product_name">
+                        <div>
+                            <a href="@Url.Action("Details", "Hasako", new { id = sp.MaHS })">
+                                @sp.TenHS
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product_extras">
+                        <button class="product_cart_button active">Mua ngay</button>
+                    </div>
+                </div>
+                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                <ul class="product_marks">
+                    <li class="product_mark product_discount"></li>
+                    @*<li class="product_mark product_new"></li>*@
+                </ul>
+            </div>
+        </div>
+    }
 }
+
+

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<UELWeb2Hasako.Models.DANHGIA>
+
+
+@foreach (var item in Model)
+{
+    <div class="single_post_text">
+        @Html.DisplayFor(modelItem => item.KHACHHANG.TenKh)
+        <br />
+        @Html.DisplayFor(modelItem => item.NgayDanhGia)
+        <div class="rating_r rating_r_4 bestsellers_rating">
+            @for (int i = 1; i <= item.Diem; i++)
+            {
+                <i></i>
+            }
+        </div>
+        <p>
+            @Html.DisplayFor(modelItem => item.DanhGia)
+        </p>
+        <hr />
+    </div>
+
+}
+<div>Hiện sản phẩm chưa có thêm đánh giá nào. </div>

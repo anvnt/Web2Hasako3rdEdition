@@ -27,9 +27,6 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <p>
-                @Html.ActionLink("Thêm mới", "ThemMoiDonHang")
-            </p>
             <table class="table">
                 <tr>
                     <th>Tên khách hàng</th>
@@ -65,15 +62,7 @@
                             @Html.DisplayFor(modelItem => item.Diachigiaohang)
                         </td>
                         <td>
-                            @if (item.Tinhtranggiaohang == true)
-                            {
-                                @:Đã giao hàng
-                            }
-                            else
-                            {
-                                @:Chưa giao hàng
-                            }
-                            @*@Html.DisplayFor(modelItem => item.Tinhtranggiaohang)*@
+                            @Html.DisplayFor(modelItem => item.TINHTRANGGIAOHANG1.NoiDungAdmin)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Thanhtien)

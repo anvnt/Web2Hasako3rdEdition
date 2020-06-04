@@ -4,12 +4,28 @@
 {
     <div class="bestsellers_item discount">
         <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
-            <div class="bestsellers_image"><img src="~/images/@hs.AnhBia" alt=""></div>
+            <a href="@Url.Action("Details", "Hasako", new { id = hs.MaHS })">
+                <div class="bestsellers_image"><img src="~/images/@hs.AnhBia" alt=""></div>
+                </a>
             <div class="bestsellers_content">
-                <div class="bestsellers_category"><a href="#">@hs.TenDM</a></div>
-                <div class="bestsellers_name"><a href="product.html">@hs.TenHS</a></div>
-                <div class="rating_r rating_r_4 bestsellers_rating"><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="bestsellers_price">@hs.DonGia VNĐ</div>
+                <div class="bestsellers_category">
+                    @hs.TenDM
+                </div>
+                <div class="bestsellers_name">
+                    <a href="@Url.Action("Details", "Hasako", new { id = hs.MaHS })">
+                        @hs.TenHS
+                    </a>
+                </div>
+                <div class="rating_r rating_r_4 bestsellers_rating">
+                    @for (int i = 1; i <= hs.Danhgia; i++)
+                    {
+                        <i></i>
+                    }
+                </div>
+                <a href="@Url.Action("Details", "Hasako", new { id = hs.MaHS })">
+
+                    <div class="bestsellers_price">@string.Format("{0:0,0}", hs.DonGia) VNĐ</div>
+                </a>
             </div>
         </div>
         <div class="bestsellers_fav active"><i class="fas fa-heart"></i></div>
